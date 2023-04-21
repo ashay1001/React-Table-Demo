@@ -2,6 +2,7 @@ import React, { useMemo } from 'react'
 import { useTable, useSortBy, usePagination, useGlobalFilter, useFilters } from 'react-table';
 import '../styles/TableComponent.css'
 import GlobalFilter from './GlobalFilter';
+import { ColumnFilter } from "./ColumnFilter";
 
 type Tableprops = {
     data: any[];
@@ -11,6 +12,7 @@ type Tableprops = {
 export default function TableComponent(props: Tableprops) {
     const data = useMemo(() => props.data, [props.data]);
     const columns = useMemo(() => props.columns, [props.columns]);
+    const defaultColumn = useMemo(() => ({ Filter: ColumnFilter }), []);
 
     const {
         getTableProps,
@@ -27,7 +29,7 @@ export default function TableComponent(props: Tableprops) {
         setPageSize,
         setGlobalFilter,
         prepareRow
-    } = useTable({ columns, data, initialState: { pageIndex: 0, pageSize: 15 } }, useGlobalFilter, useSortBy, usePagination );
+    } = useTable({ columns, data, defaultColumn, initialState: { pageIndex: 0, pageSize: 15 } }, useFilters, useGlobalFilter, useSortBy, usePagination);
 
     const { pageIndex, globalFilter } = state;
 
@@ -41,11 +43,14 @@ export default function TableComponent(props: Tableprops) {
                             headerGroups.map((headerGroup) => (
                                 <tr {...headerGroup.getHeaderGroupProps()}>
                                     {headerGroup.headers.map((col) => (
-                                        <th {...col.getHeaderProps(col.getSortByToggleProps())}>
-                                            {col.render('Header')}
-                                            <span>
-                                                {col.isSorted ? (col.isSortedDesc ? <i className='bi bi-caret-down-fill'></i> : <i className='bi bi-caret-up-fill'></i>) : ''}
-                                            </span>
+                                        <th>
+                                            <div {...col.getHeaderProps(col.getSortByToggleProps())}>
+                                                {col.render('Header')}
+                                                <span>
+                                                    {col.isSorted ? (col.isSortedDesc ? <i className='bi bi-caret-down-fill'></i> : <i className='bi bi-caret-up-fill'></i>) : ''}
+                                                </span>
+                                            </div>
+                                            <div>{col.canFilter ? col.render('Filter') : null}</div>
                                         </th>
                                     ))}
                                 </tr>

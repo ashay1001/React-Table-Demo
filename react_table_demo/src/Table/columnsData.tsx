@@ -1,14 +1,18 @@
 import { format } from "date-fns";
-import DatePicker from "react-datepicker";
+import { SelectColumnFilter } from "./SelectColumnFilter";
 
 export const columnsData = [
     {
         Header: 'Name',
-        accessor: (row: { name: { title: any; first: any; last: any }; }) => row.name.title + ". " + row.name.first + " " + row.name.last
+        accessor: (row: { name: { title: any; first: any; last: any }; }) => row.name.title + ". " + row.name.first + " " + row.name.last,
+        disableFilters: true,
+        //disableGlobalFilter: true,
     },
     {
         Header: 'Gender',
-        accessor: 'gender'
+        accessor: 'gender',
+        Filter: SelectColumnFilter,
+        filter: 'equals' // by default, filter: 'text', but in our case we don't want to filter options like text, we want to find exact match of selected option.
     },
     {
         Header: 'Date of Birth',
