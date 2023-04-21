@@ -1,0 +1,120 @@
+table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 0.9em;
+  font-weight: bold;
+  color: #4b4f4f;;
+}
+  
+table td, table th {
+  padding: 8px;
+}
+  
+table tr:hover {
+  background-color: #dfe3eb;
+  border-radius: 2px;
+}
+
+table tr {
+  border-bottom: solid 1px #f1efef;
+}
+
+table tbody tr:last-of-type {
+  border-bottom: solid 3px rgba(187, 66, 66, 0.98);
+}
+
+table th {
+  border: hidden; 
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: rgba(187, 66, 66, 0.98);;
+  color: white;
+  position: sticky;
+  top: 0;
+}
+
+table th:first-of-type { 
+  border-top-left-radius: 5px;
+}
+
+table th:last-of-type { 
+  border-top-right-radius: 5px;
+}
+
+table th span i {
+  padding-left: 10px;
+}
+
+.table_container{
+  padding-right: 10px;
+  padding-left: 10px;
+  height: 90%;
+  overflow: scroll;
+}
+
+.pagination_container{
+  padding-right: 20px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.table_wrapper {
+  box-shadow: 0 0 5px 0 rgba(0,0,0,.15);
+  -webkit-box-shadow: 0 0 5px 0 rgba(0,0,0,.15);
+}
+
+.nav-btn {
+  width: 30px;
+  height: 30px;
+  background-color: inherit;
+  border: none;
+  color: rgba(187, 66, 66, 0.98);
+  border-radius: 50%;
+}
+
+.nav-btn:hover {
+  color: white;
+  background-color: rgba(187, 66, 66, 0.98);
+}
+
+.nav-btn:disabled {
+  color: lightgray;
+  background-color: inherit;
+  /* visibility: hidden; */
+}
+
+.bi-chevron-left, .bi-chevron-right, .bi-chevron-double-right, .bi-chevron-double-left{
+  height: 30px;
+  width: 30px;
+  font-size: 20px;
+}
+
+.pageNo-btn{
+  margin-left: 5px;
+  margin-right: 5px;
+  height: 30px;
+  width: 30px;
+  text-align: center;
+  display: inline-block;
+  font-size: 16px;
+  color: #4b4f4f;;
+  background-color: inherit;
+  border: 2px solid rgba(187, 66, 66, 0.98);;
+  border-radius: 50%;
+}
+
+.pageNo-btn:hover{
+  cursor: default;
+}
+
+.page-size-options{
+  margin-right: 15px;
+  padding: 4px;
+  color: #4b4f4f;;
+  background-color: white;
+  text-align: center;
+  border: 2px solid rgba(187, 66, 66, 0.98);;
+  border-radius: 10px;
+}
