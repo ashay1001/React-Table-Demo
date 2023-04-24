@@ -1,5 +1,7 @@
 import { format } from "date-fns";
 import { SelectColumnFilter } from "./SelectColumnFilter";
+import {DateFilter, dateFilterFn} from "./DateFilter";
+
 
 export const columnsData = [
     {
@@ -15,11 +17,14 @@ export const columnsData = [
         filter: 'equals' // by default, filter: 'text', but in our case we don't want to filter options like text, we want to find exact match of selected option.
     },
     {
+        id: 'dateOfBirth',
         Header: 'Date of Birth',
         accessor: 'dob.date',
         Cell: ({ value }: { value: string }) => {
             return <span>{format(new Date(value), 'MMM dd, yyyy hh:mm a')}</span>;
-        }
+        },
+        Filter: DateFilter,
+        filter: dateFilterFn
     },
     {
         Header: 'Country',

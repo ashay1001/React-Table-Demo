@@ -14,6 +14,7 @@ export default function TableComponent(props: Tableprops) {
     const columns = useMemo(() => props.columns, [props.columns]);
     const defaultColumn = useMemo(() => ({ Filter: ColumnFilter }), []);
 
+
     const {
         getTableProps,
         getTableBodyProps,
@@ -27,9 +28,9 @@ export default function TableComponent(props: Tableprops) {
         gotoPage,
         state,
         setPageSize,
-        setGlobalFilter,
+        setGlobalFilter,    
         prepareRow
-    } = useTable({ columns, data, defaultColumn, initialState: { pageIndex: 0, pageSize: 15 } }, useFilters, useGlobalFilter, useSortBy, usePagination);
+    } = useTable({ columns, data, defaultColumn, /*filterTypes: { date: dateFilterFn },*/ initialState: { pageIndex: 0, pageSize: 15 } }, useFilters, useGlobalFilter, useSortBy, usePagination);
 
     const { pageIndex, globalFilter } = state;
 
