@@ -2,13 +2,12 @@ import { useState } from "react";
 import { FilterProps } from "react-table";
 
 export function dateFilterFn(rows: any[], id: any[], filterValue: any[]) {
-    console.log("filterValue From dateFilter function: ", filterValue);
-    //return rows;
+
     const filterDate = new Date(filterValue[1]).getTime();
-    console.log("filterDate From dateFilter function: ", filterDate);
+    
     return rows.filter((row) => {
 
-
+        console.log("rows.filter From dateFilter function: ", row.values);
         const rowDate = new Date(row.values[id[0]]).getTime();
 
         if (filterValue[0] === '' || filterValue[1] === '') {

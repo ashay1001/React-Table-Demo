@@ -7,7 +7,7 @@ export const columnsData = [
     {
         Header: 'Name',
         accessor: (row: { name: { title: any; first: any; last: any }; }) => row.name.title + ". " + row.name.first + " " + row.name.last,
-        disableFilters: true,
+        //disableFilters: true,
         //disableGlobalFilter: true,
     },
     {

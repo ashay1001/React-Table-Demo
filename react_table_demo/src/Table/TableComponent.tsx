@@ -2,7 +2,7 @@ import React, { useMemo } from 'react'
 import { useTable, useSortBy, usePagination, useGlobalFilter, useFilters } from 'react-table';
 import '../styles/TableComponent.css'
 import GlobalFilter from './GlobalFilter';
-import { ColumnFilter } from "./ColumnFilter";
+import { ColumnFilter, handleFilterFn} from "./ColumnFilter";
 
 type Tableprops = {
     data: any[];
@@ -12,7 +12,7 @@ type Tableprops = {
 export default function TableComponent(props: Tableprops) {
     const data = useMemo(() => props.data, [props.data]);
     const columns = useMemo(() => props.columns, [props.columns]);
-    const defaultColumn = useMemo(() => ({ Filter: ColumnFilter }), []);
+    const defaultColumn = useMemo(() => ({ Filter: ColumnFilter, filter: handleFilterFn}), []);
 
 
     const {
@@ -37,7 +37,7 @@ export default function TableComponent(props: Tableprops) {
     return (
         <>
             <div className='table_container'>
-                <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter} />
+                <GlobalFilter filterValue={globalFilter} setFilter={setGlobalFilter} />
                 <table className='table_wrapper' {...getTableProps()}>
                     <thead>
                         {
