@@ -2,17 +2,19 @@ import React, { useMemo } from 'react'
 import { useTable, useSortBy, usePagination, useGlobalFilter, useFilters } from 'react-table';
 import '../styles/TableComponent.css'
 import GlobalFilter from './GlobalFilter';
-import { ColumnFilter, handleFilterFn} from "./ColumnFilter";
+import { DefaultCustomFilter, handleFilterFn } from "./DefaultCustomFilter";
 
 type Tableprops = {
     data: any[];
     columns: any[];
+    table_heading: string;
 }
 
 export default function TableComponent(props: Tableprops) {
+    const heading = props.table_heading;
     const data = useMemo(() => props.data, [props.data]);
     const columns = useMemo(() => props.columns, [props.columns]);
-    const defaultColumn = useMemo(() => ({ Filter: ColumnFilter, filter: handleFilterFn}), []);
+    const defaultColumn = useMemo(() => ({ Filter: DefaultCustomFilter, filter: handleFilterFn }), []);
 
 
     const {
@@ -28,7 +30,7 @@ export default function TableComponent(props: Tableprops) {
         gotoPage,
         state,
         setPageSize,
-        setGlobalFilter,    
+        setGlobalFilter,
         prepareRow
     } = useTable({ columns, data, defaultColumn, /*filterTypes: { date: dateFilterFn },*/ initialState: { pageIndex: 0, pageSize: 15 } }, useFilters, useGlobalFilter, useSortBy, usePagination);
 
@@ -36,8 +38,11 @@ export default function TableComponent(props: Tableprops) {
 
     return (
         <>
-            <div className='table_container'>
+            <div className="title_container">
+                <div className="heading">{heading}</div>
                 <GlobalFilter filterValue={globalFilter} setFilter={setGlobalFilter} />
+            </div>
+            <div className='table_container'>
                 <table className='table_wrapper' {...getTableProps()}>
                     <thead>
                         {

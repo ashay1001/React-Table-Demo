@@ -19,7 +19,7 @@ function App() {
 
   return (
     <>
-      { data.length > 0 ? <TableComponent data={data} columns={columnsData} /> : 'Loading...' }
+      { data.length > 0 ? <TableComponent data={data} columns={columnsData} table_heading="Table Title" /> : 'Loading...' }
     </>
   );
 }

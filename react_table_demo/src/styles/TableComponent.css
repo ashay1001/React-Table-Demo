@@ -118,3 +118,11 @@ table th span i {
   border: 2px solid rgba(187, 66, 66, 0.98);;
   border-radius: 10px;
 }
+
+.title_container{
+  margin: 5px;
+  padding-right: 30px;
+  padding-left: 10px;
+  display: flex;
+  justify-content: space-between;
+}

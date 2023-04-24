@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { FilterProps } from "react-table";
 
 
-function handleFilterFn(rows: any[], ids: any[], filterValue: any[]) {
+export function handleFilterFn(rows: any[], ids: any[], filterValue: any[]) {
 
     const [filterType, value] = filterValue;
     console.log("From handleFilterFn: ", filterType, value);
@@ -38,7 +38,7 @@ function handleFilterFn(rows: any[], ids: any[], filterValue: any[]) {
         rows = rows.filter((row) => {
             return ids.some((id) => {
                 const rowValue = row.values[id];
-                return String(rowValue).toLowerCase() === (String(filterValue).toLowerCase());
+                return String(rowValue).toLowerCase() === (String(value).toLowerCase());
             });
         });
         return rows;
@@ -48,59 +48,8 @@ function handleFilterFn(rows: any[], ids: any[], filterValue: any[]) {
 }
 
 
-function contains(rows: any[], ids: any[], filterValue: any) {
-    rows = rows.filter((row) => {
-        return ids.some((id) => {
-            const rowValue = row.values[id];
-            return String(rowValue)
-                .toLowerCase()
-                .includes(String(filterValue).toLowerCase());
-        });
-    });
-    return rows;
-}
-
-function startsWith(rows: any[], ids: any[], filterValue: any) {
-    rows = rows.filter((row) => {
-        return ids.some((id) => {
-            const rowValue = row.values[id];
-            return String(rowValue).toLowerCase().startsWith(String(filterValue).toLowerCase());
-        });
-    });
-    return rows;
-}
-
-function endsWith(rows: any[], ids: any[], filterValue: any) {
-    rows = rows.filter((row) => {
-        return ids.some((id) => {
-            const rowValue = row.values[id];
-            return String(rowValue)
-                .toLowerCase()
-                .endsWith(String(filterValue).toLowerCase());
-        });
-    });
-    return rows;
-}
-
-function equals(rows: any[], ids: any[], filterValue: any) {
-    rows = rows.filter((row) => {
-        return ids.some((id) => {
-            const rowValue = row.values[id];
-            return String(rowValue).toLowerCase() === String(filterValue).toLowerCase();
-        });
-    });
-    return rows;
-}
-
-export { handleFilterFn, contains, startsWith, endsWith, equals };
-
-// type filterProps = {
-//     column: any;
-// }
-
-
-export const ColumnFilter = ({ column: { filterValue, setFilter }, }: FilterProps<any>) => {
-    //const { filterValue, setFilter, filter, setFilterType } = props.column;
+export const DefaultCustomFilter = ({ column: { setFilter }, }: FilterProps<any>) => {
+    
     const [filterType, setFilterType] = useState('contains');
     const [valueToFilter, setValueToFilter] = useState('');
 
