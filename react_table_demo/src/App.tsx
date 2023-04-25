@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import TableComponent from './Table/TableComponent';
 import { columnsData } from './Table/columnsData';
+import { Portal } from './portal';
+import { createPortal } from 'react-dom';
 
 function App() {
 
@@ -19,7 +21,7 @@ function App() {
 
   return (
     <>
-      { data.length > 0 ? <TableComponent data={data} columns={columnsData} table_heading="Table Title" /> : 'Loading...' }
+      {data.length > 0 ? <TableComponent data={data} columns={columnsData} table_heading="Table Title" /> : 'Loading...'}
     </>
   );
 }

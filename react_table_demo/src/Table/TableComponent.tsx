@@ -3,6 +3,7 @@ import { useTable, useSortBy, usePagination, useGlobalFilter, useFilters } from 
 import '../styles/TableComponent.css'
 import GlobalFilter from './GlobalFilter';
 import { DefaultCustomFilter, handleFilterFn } from "./DefaultCustomFilter";
+import { Portal } from '../portal';
 
 type Tableprops = {
     data: any[];
@@ -50,13 +51,15 @@ export default function TableComponent(props: Tableprops) {
                                 <tr {...headerGroup.getHeaderGroupProps()}>
                                     {headerGroup.headers.map((col) => (
                                         <th>
-                                            <div {...col.getHeaderProps(col.getSortByToggleProps())}>
+                                            <span {...col.getHeaderProps(col.getSortByToggleProps())}>
                                                 {col.render('Header')}
                                                 <span>
                                                     {col.isSorted ? (col.isSortedDesc ? <i className='bi bi-caret-down-fill'></i> : <i className='bi bi-caret-up-fill'></i>) : ''}
                                                 </span>
-                                            </div>
-                                            <div>{col.canFilter ? col.render('Filter') : null}</div>
+                                            </span>
+                                            <span>
+                                                {col.canFilter ? col.render('Filter') : null}
+                                            </span>
                                         </th>
                                     ))}
                                 </tr>

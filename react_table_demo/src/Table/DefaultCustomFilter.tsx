@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { createPortal } from "react-dom";
+import { usePopper } from "react-popper";
 import { FilterProps } from "react-table";
 
 
@@ -49,9 +51,16 @@ export function handleFilterFn(rows: any[], ids: any[], filterValue: any[]) {
 
 
 export const DefaultCustomFilter = ({ column: { setFilter }, }: FilterProps<any>) => {
-    
+
     const [filterType, setFilterType] = useState('contains');
     const [valueToFilter, setValueToFilter] = useState('');
+
+    const [referenceElement, setReferenceElement] = useState<HTMLButtonElement | null>(null);
+    const [popperElement, setPopperElement] = useState<HTMLDivElement | null>(null);
+
+    const { styles, attributes } = usePopper(referenceElement, popperElement);
+
+    const [popperVisibility, setPopperVisibility] = useState<boolean>(false);
 
     const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         setFilterType(e.target.value);
@@ -74,17 +83,28 @@ export const DefaultCustomFilter = ({ column: { setFilter }, }: FilterProps<any>
     };
 
     return (
-        <div>
-            <select value={filterType} onChange={handleChange}>
-                <option value="contains">Contains</option>
-                <option value="starts_with">Starts With</option>
-                <option value="ends_with">Ends With</option>
-                <option value="exact">Exact</option>
-            </select>
-            {/* <input type="text" value={filterValue || ''} onChange={(e) => setFilter(e.target.value || undefined)} /> */}
-            <input type="text" value={valueToFilter || ''} onChange={handleValueChange} />
-            <button onClick={handleSubmit}>Apply</button>
-            <button onClick={handleClear}>Clear</button>
-        </div>
+        <span className="filter_container">
+            <button className="filter_btn" ref={setReferenceElement}>
+                <i className="bi bi-filter"></i>
+            </button>
+            {createPortal(
+                <div id="tooltip" className="portal_container" ref={setPopperElement} style={styles.popper} {...attributes.popper}>
+                    <select value={filterType} onChange={handleChange}>
+                        <option value="contains">Contains</option>
+                        <option value="starts_with">Starts With</option>
+                        <option value="ends_with">Ends With</option>
+                        <option value="exact">Exact</option>
+                    </select>
+                    <input type="text" value={valueToFilter || ''} onChange={handleValueChange} />
+                    <div className="popup_btn_container">
+                        <button className="popup_btn apply_btn" onClick={handleSubmit}>Apply</button>
+                        <button className="popup_btn clear_button" onClick={handleClear}>Clear</button>
+                    </div>
+                    <div id="arrow" data-popper-arrow></div>
+                </div>,
+                document.body
+            )}
+        </span>
+
     );
 }
